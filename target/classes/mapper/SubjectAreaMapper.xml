@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.SubjectAreaRepository">
+
+    <select id="getSubjectAreas" resultMap="SubjectAreaResultMap">
+        Select
+        a.id as area_id,
+        a.name as area_name,
+        sa.id as subject_area_id,
+        sa.area_id as subject_area_area_id,
+        sa.subject_id as subject_area_subject_id,
+        s.id as subject_id,
+        s.name as subject_name,
+        s.room_type_needed as subject_room_type
+        from areas a
+        inner join subject_area sa
+        on a.id = sa.area_id
+        inner join subjects s
+        on s.id = sa.subject_id
+    </select>
+
+    <resultMap id="SubjectAreaResultMap" type="java.com.solvd.timetable.algorithm.SubjectArea" autoMapping="false">
+        <result property="areaName" column="area_name"/>
+        <collection property="subjects" resultMap="java.сom.solvd.timetable.persistence.TeacherRepository.SubjectResultMap"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.DayComplexityRepository">
+
+    <select id="getDayComplexities" resultMap="DayComplexityResultMap">
+        Select
+        cpd.id as complexity_per_day_id,
+        cpd.day_id as complexity_per_day_day_id,
+        cpd.complexity as complexity_per_day_complexity,
+        d.id as day_id,
+        d.name as day_name
+        from
+        complexity_per_day cpd
+        inner join
+        days d
+        on cpd.day_id = d.id
+    </select>
+
+    <resultMap id="DayComplexityResultMap" type="java.com.solvd.timetable.algorithm.DayComplexity" autoMapping="false">
+        <id property="id" column="complexity_per_day_id"/>
+        <result property="day" column="day_name"/>
+        <result property="dayComplexity" column="complexity_per_day_complexity"/>
+    </resultMap>
+
+</mapper>

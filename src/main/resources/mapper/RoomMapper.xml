@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.RoomRepository">
+
+    <select id="getRooms" resultMap="RoomResultMap">
+        Select
+            cr.id as classroom_id,
+            cr.number as classroom_number,
+            cr.type as classroom_type
+        from
+            classrooms cr
+    </select>
+
+    <resultMap id="RoomResultMap" type="java.com.solvd.timetable.domain.Room" autoMapping="false">
+        <id property="id" column="classroom_id"/>
+        <result property="number" column="classroom_number"/>
+        <result property="roomType" column="classroom_type"/>
+    </resultMap>
+</mapper>

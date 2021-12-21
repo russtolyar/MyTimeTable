@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.TeacherWishesRepository">
+
+    <select id="getTeacherWishes" resultMap="SubjectPositionResultMap">
+        Select
+        t.id as teacher_id,
+        t.first_name as teacher_first_name,
+        t.last_name as teacher_last_name,
+        ln.id as lesson_number_id,
+        ln.time_name as time_name
+        from lesson_numbers ln
+        inner join teacher_wishes tw on
+        tw.lesson_number_id = ln.id
+        inner join teachers t on
+        tw.teacher_id = t.id
+    </select>
+
+    <resultMap id="SubjectPositionResultMap" type="java.com.solvd.timetable.algorithm.TeacherWish" autoMapping="false">
+        <id property="id" column="teacher_id"/>
+        <association property="teacher" resultMap="java.com.solvd.timetable.persistence.TeacherRepository.TeacherResultMap"/>
+        <collection property="wishes" resultMap="LessonNumberrResultMap"/>
+    </resultMap>
+
+    <resultMap id="LessonNumberrResultMap" type="java.com.solvd.timetable.domain.timetable.LessonNumber" autoMapping="false">
+        <result property="wishes" column="time_name" javaType="java.com.solvd.timetable.domain.timetable.LessonNumber"/>
+    </resultMap>
+
+</mapper>

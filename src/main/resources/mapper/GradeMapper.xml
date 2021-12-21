@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.GradeRepository">
+
+    <select id="getGrades" resultMap="GradeResultMap">
+        Select
+            c.id as class_id,
+            c.name as class_name
+        from
+            classes c
+    </select>
+
+    <resultMap id="GradeResultMap" type="java.com.solvd.timetable.domain.Grade" autoMapping="false">
+        <id property="id" column="class_id"/>
+        <result property="name" column="class_name"/>
+    </resultMap>
+</mapper>

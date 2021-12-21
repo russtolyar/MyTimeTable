@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="java.com.solvd.timetable.persistence.TeacherRepository">
+
+    <select id="getTeachers" resultMap="TeacherResultMap">
+        Select
+            t.id as teacher_id,
+            t.first_name as teacher_first_name,
+            t.last_name as teacher_last_name,
+            s.id as subject_id,
+            s.name as subject_name,
+            s.room_type_needed as subject_room_type
+        from
+            teachers t
+        left join
+            teacher_subjects ts on t.id = ts.teacher_id
+        left join
+            subjects s on ts.subject_id = s.id
+    </select>
+
+    <resultMap id="TeacherResultMap" type="java.com.solvd.timetable.domain.Teacher" autoMapping="false">
+        <id property="id" column="teacher_id"/>
+        <result property="firstName" column="teacher_first_name"/>
+        <result property="lastName" column="teacher_last_name"/>
+        <collection property="subjects" resultMap="SubjectResultMap"/>
+    </resultMap>
+
+    <resultMap id="SubjectResultMap" type="java.com.solvd.timetable.domain.Subject" autoMapping="false">
+        <id property="id" column="subject_id"/>
+        <result property="name" column="subject_name"/>
+        <result property="roomTypeNeeded" column="subject_room_type"/>
+    </resultMap>
+
+</mapper>
